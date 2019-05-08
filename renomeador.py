@@ -1,7 +1,9 @@
-import os,glob
+import os 
 from pathlib import Path
 
 mypath = Path().absolute()
+
+files_JPG = []
 
 #Lista de códigos de referência dos óculos
 lista_codigo_oculos = []
@@ -21,23 +23,28 @@ while contador < quantidade_de_oculos:
 
 os.chdir(mypath)
 
+lista = sorted(os.listdir())
+
+for file in lista:
+    if ".JPG" in file:
+        files_JPG.append(file)
+
 #numero do item
 item=1
 
 #index do item
 itemIndex = 0
 
-for (index,file) in enumerate(glob.glob('.JPG')):
+for (index,file) in enumerate(files_JPG):
     src=file
-    novoNome=str(index + 1)+" "+lista_codigo_oculos[itemIndex]+".jpg"
+    novoNome=str(index + 1)+" "+lista_codigo_oculos[itemIndex]+".JPG"
     itemIndex+=1
     item += 1
     os.rename(src,novoNome)
+    print(src + "->" + novoNome)
     if(item > quantidade_de_oculos):
         itemIndex = 0
         item = 0
-        
-
 
 
 
