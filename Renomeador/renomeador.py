@@ -3,40 +3,48 @@ from pathlib import Path
 
 mypath = Path().absolute()
 
-
-
-
 files_JPG = []
 
-#Lista_de códigos de referência dos óculos
+#Lista de códigos de referência dos óculos
 lista_codigo_oculos = []
 
 #quantidade de óculos para ser catálogada
 quantidade_de_oculos = int(input("Quantidade de óculos para catalogar: "))
 
-# #Quantidade de óculos já catalogado
+#Quantidade de óculos já catalogado
 contador = 0
 
 while contador < quantidade_de_oculos:
-     #Código de referencia do óculos
-     código_referência = str(input("Código de Referência: "))
-     #Adicionando código a lista da códigos
-     lista_codigo_oculos.append(código_referência.upper())
-     contador += 1
+    #Código de referencia do óculos
+    código_referência = str(input("Código de Referência: "))
+    #Adicionando código a lista da códigos
+    lista_codigo_oculos.append(código_referência.upper())
+    contador += 1
 
 os.chdir(mypath)
 
 lista = sorted(os.listdir())
 
 for file in lista:
-        if ".JPG" in file:
-         files_JPG.append(file)
+    if ".JPG" in file:
+        files_JPG.append(file)
 
 #numero do item
-item = 1
+item=1
 
 #index do item
 itemIndex = 0
+
+for (index,file) in enumerate(files_JPG):
+    src=file
+    novoNome=str(index + 1)+" "+lista_codigo_oculos[itemIndex]+".JPG"
+    itemIndex+=1
+    item += 1
+    os.rename(src,novoNome)
+    print(src + "->" + novoNome)
+    if(item > quantidade_de_oculos):
+        itemIndex = 0
+        item = 0
 
 full_directory = str(mypath)
 
@@ -58,17 +66,6 @@ lista_de_pastas = os.listdir(pai)
 for folder in lista_de_pastas:
        if folder == pasta:
                os.rename(folder,nome_nova_pasta)
-
-for (index,file) in enumerate(files_JPG):
-   src=file
-   novoNome=str(index + 1)+" "+lista_codigo_oculos[itemIndex]+".JPG"
-   itemIndex+=1
-   item += 1
-   os.rename(src,novoNome)
-   print(src + "->" + novoNome)
-   if(item > quantidade_de_oculos):
-       itemIndex = 0
-       item = 0
 
 
 
