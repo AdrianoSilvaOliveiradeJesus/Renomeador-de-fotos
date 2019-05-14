@@ -54,8 +54,16 @@ pai = d = Path().resolve().parent
 
 os.chdir(pai)
 
+nova_lista_referencia = []
+
+for oculos in lista_codigo_oculos:
+        serie = oculos.split(" ")
+        nova_lista_referencia.append(serie[0])
+
+nova_lista_referencia
+
 nome_nova_pasta = ""
-lista_de_nomes = sorted(set(lista_codigo_oculos))
+lista_de_nomes = sorted(set(nova_lista_referencia))
 for NS in lista_de_nomes:
         if(nome_nova_pasta == ""):
                 nome_nova_pasta = nome_nova_pasta + NS
