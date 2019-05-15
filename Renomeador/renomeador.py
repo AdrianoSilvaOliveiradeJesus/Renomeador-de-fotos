@@ -1,14 +1,19 @@
 import os 
 from pathlib import Path
 
-def renameImagem(mypath,files_JPG,lista):
+def renameImagem(mypath,listaoculos):
         os.chdir(mypath)
+
+        files_JPG = []
 
         lista = sorted(os.listdir())
 
         for file in lista:
                 if ".JPG" in file:
                         files_JPG.append(file)
+
+        print(files_JPG)
+        print(listaoculos)
 
         #numero do item
         item=1
@@ -18,7 +23,7 @@ def renameImagem(mypath,files_JPG,lista):
 
         for (index,file) in enumerate(files_JPG):
                 src=file
-                novoNome=str(index + 1)+" "+lista[itemIndex]+".JPG"
+                novoNome=str(index + 1)+" "+listaoculos[itemIndex]+".JPG"
                 itemIndex+=1
                 item += 1
                 os.rename(src,novoNome)
@@ -59,8 +64,6 @@ def renamePasta(mypath,lista):
 
 mypath = Path().absolute()
 
-files_JPG = []
-
 #Lista de códigos de referência dos óculos
 lista_codigo_oculos = []
 
@@ -83,7 +86,7 @@ if(oculos_iguais == "s" or oculos_iguais == "S"):
         for codigoCor in codigo_de_cor:
                 lista_oculos_igual.append(código_referência + " " + codigoCor)
         
-        renameImagem(mypath,files_JPG,lista_oculos_igual)
+        renameImagem(mypath,lista_oculos_igual)
         renamePasta(mypath,lista_oculos_igual)
 
 else:
@@ -96,7 +99,7 @@ else:
                 #Adicionando código a lista da códigos
                 lista_codigo_oculos.append(código_referência.upper())
                 contador += 1
-        renameImagem(mypath,files_JPG,lista_codigo_oculos)
+        renameImagem(mypath,lista_codigo_oculos)
 
         renamePasta(mypath,lista_codigo_oculos)
 
