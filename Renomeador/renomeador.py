@@ -1,5 +1,18 @@
 import os 
+import shutil
 from pathlib import Path
+
+def copytree(src, dst, symlinks=False, ignore=None):
+    if not os.path.exists(dst):
+        os.makedirs(dst)
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            copytree(s, d, symlinks, ignore)
+        else:
+            if not os.path.exists(d) or os.stat(s).st_mtime - os.stat(d).st_mtime > 1:
+                shutil.copy2(s, d)
 
 def renameImagem(mypath,listaoculos):
         os.chdir(mypath)
@@ -85,7 +98,7 @@ if(oculos_iguais == "s" or oculos_iguais == "S"):
                 contador += 1
         for codigoCor in codigo_de_cor:
                 lista_oculos_igual.append(código_referência + " " + codigoCor)
-        
+        copytree(mypath,Path().resolve().parent)
         renameImagem(mypath,lista_oculos_igual)
         renamePasta(mypath,lista_oculos_igual)
 
